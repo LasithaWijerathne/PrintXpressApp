@@ -1,0 +1,26 @@
+{
+  "_comment": "THIS IS A PLACEHOLDER, NOT A REAL FIREBASE CONFIG FILE. See SETUP.md at the project root for exact steps. Once you download your real google-services.json from the Firebase console, rename this file's sibling (remove the .EXAMPLE extension from your downloaded copy) and place it at app/google-services.json so Android Studio and the Google Services Gradle plugin can find it.",
+  "project_info": {
+    "project_number": "000000000000",
+    "project_id": "printxpress-REPLACE-ME",
+    "storage_bucket": "printxpress-REPLACE-ME.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:000000000000:android:0000000000000000000000",
+        "android_client_info": {
+          "package_name": "com.printxpress.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        { "current_key": "REPLACE-WITH-YOUR-REAL-API-KEY" }
+      ],
+      "services": {
+        "appinvite_service": { "other_platform_oauth_client": [] }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Core brand palette, matches Task C design system -->
+    <color name="ink_charcoal">#1C1B1F</color>
+    <color name="print_magenta">#D7263D</color>
+    <color name="cyan">#2FA8B3</color>
+    <color name="paper_cream">#FAF7F2</color>
+
+    <!-- Order status colours, used consistently on badges everywhere -->
+    <color name="status_processing">#E8A33D</color>
+    <color name="status_printing">#2FA8B3</color>
+    <color name="status_ready">#3F9142</color>
+    <color name="status_cancelled">#9AA0A6</color>
+
+    <!-- Neutrals -->
+    <color name="white">#FFFFFF</color>
+    <color name="text_primary">#1C1B1F</color>
+    <color name="text_secondary">#6B6B70</color>
+    <color name="divider">#E5E2DC</color>
+    <color name="field_background">#F2F2F0</color>
+    <color name="error">#D7263D</color>
+</resources>

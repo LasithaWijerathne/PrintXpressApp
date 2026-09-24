@@ -1,0 +1,79 @@
+rules_version = '2';
+
+// Deploy with: firebase deploy --only firestore:rules
+// (requires the Firebase CLI and firebase.json - see SETUP.md)
+//
+// These rules are the real enforcement layer behind the comments in
+// data/repository/*.kt that say "Firestore does not enforce this, the
+// repository/UI does" - this file is where that enforcement actually
+// lives. The Android app's own validation (AuthViewModel, CheckoutViewModel,
+// StorageRepository) is a fast, friendly first line of defence; these
+// rules are the one that cannot be bypassed by a modified or fake client.
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    // ---- users/{uid} ----
+    match /users/{userId} {
+      allow read, update: if isOwner(userId);
+      allow create: if isOwner(userId);
+      allow delete: if false; // accounts are deactivated, not deleted, from this client
+
+      match /addresses/{addressId} {
+        allow read, write: if isOwner(userId);
+      }
+      match /savedDesigns/{designId} {
+        allow read, write: if isOwner(userId);
+      }
+    }
+
+    // ---- products/{productId} ----
+    // Readable by any signed-in customer; never writable from this app -
+    // the catalogue is managed outside the customer app (Firebase console
+    // or a future admin tool), matching Task B's "products are seeded/
+    // managed outside the customer app" note in ProductRepository.kt.
+    match /products/{productId} {
+      allow read: if isSignedIn();
+      allow write: if false;
+    }
+
+    // ---- orders/{orderId} ----
+    match /orders/{orderId} {
+      allow create: if isSignedIn()
+                    && request.resource.data.userId == request.auth.uid;
+      allow read: if isSignedIn() && resource.data.userId == request.auth.uid;
+
+      // A customer may only ever change scheduledDate or set status to
+      // CANCELLED - never PRINTING or READY_FOR_PICKUP, which only a
+      // trusted server-side process (running as Admin SDK, which bypasses
+      // these rules entirely) should be able to set.
+      allow update: if isSignedIn()
+                    && resource.data.userId == request.auth.uid
+                    && request.resource.data.diff(resource.data).affectedKeys()
+                         .hasOnly(['scheduledDate', 'status', 'updatedAt'])
+                    && (request.resource.data.status == resource.data.status
+                        || request.resource.data.status == 'CANCELLED');
+
+      allow delete: if false;
+    }
+
+    // ---- notifications/{notificationId} ----
+    // Only ever created by the Cloud Function (Admin SDK, bypasses rules).
+    // Clients may read their own and mark them read, nothing else.
+    match /notifications/{notificationId} {
+      allow read: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow update: if isSignedIn()
+                    && resource.data.userId == request.auth.uid
+                    && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['read']);
+      allow create, delete: if false;
+    }
+  }
+}

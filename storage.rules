@@ -1,0 +1,31 @@
+rules_version = '2';
+
+// Deploy with: firebase deploy --only storage
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    // Any signed-in customer can upload/read artwork attached to an order -
+    // orderId-scoped rather than uid-scoped because the temporary grouping
+    // ID used at "add to cart" time (see ProductDetailViewModel.kt) is
+    // generated before the order itself exists.
+    match /artwork/{orderId}/{fileName} {
+      allow read, write: if request.auth != null
+                          && request.resource.size < 10 * 1024 * 1024
+                          && request.resource.contentType.matches('image/.*|application/pdf');
+    }
+
+    // Saved designs are scoped to the owning user's folder.
+    match /designs/{userId}/{fileName} {
+      allow read, write: if request.auth != null && request.auth.uid == userId
+                          && request.resource.size < 10 * 1024 * 1024;
+    }
+
+    // Product sample images: readable by any signed-in customer,
+    // never written from this app (see firestore.rules for the
+    // matching products collection rule).
+    match /products/{productId}/{fileName} {
+      allow read: if request.auth != null;
+      allow write: if false;
+    }
+  }
+}

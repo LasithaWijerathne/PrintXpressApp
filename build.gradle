@@ -1,0 +1,9 @@
+// Top-level build file. Individual module build.gradle files apply the
+// plugins declared here with a specific version, but do not download them.
+plugins {
+    id 'com.android.application' version '8.5.2' apply false
+    id 'org.jetbrains.kotlin.android' version '1.9.24' apply false
+    // Google Services plugin reads app/google-services.json and wires up
+    // Firebase project configuration (API keys, project ID) at build time.
+    id 'com.google.gms.google-services' version '4.4.2' apply false
+}

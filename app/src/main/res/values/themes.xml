@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="Theme.PrintXpress" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">@color/ink_charcoal</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/print_magenta</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="android:colorBackground">@color/paper_cream</item>
+        <item name="colorSurface">@color/white</item>
+        <item name="android:statusBarColor">@color/ink_charcoal</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="23">false</item>
+    </style>
+
+    <style name="Theme.PrintXpress.Splash" parent="Theme.PrintXpress">
+        <item name="android:windowBackground">@color/ink_charcoal</item>
+    </style>
+
+    <!-- Primary call-to-action button: solid magenta, matches Task C system -->
+    <style name="Widget.PrintXpress.Button.Primary" parent="Widget.Material3.Button">
+        <item name="backgroundTint">@color/print_magenta</item>
+        <item name="cornerRadius">8dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:paddingTop">14dp</item>
+        <item name="android:paddingBottom">14dp</item>
+    </style>
+
+    <!-- Secondary / outline button, e.g. the Pickup / Delivery toggle -->
+    <style name="Widget.PrintXpress.Button.Outline" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="strokeColor">@color/divider</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="cornerRadius">8dp</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="TextAppearance.PrintXpress.Heading" parent="TextAppearance.Material3.HeadlineSmall">
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.PrintXpress.Body" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:textColor">@color/text_secondary</item>
+    </style>
+
+    <style name="Widget.PrintXpress.StatusBadge" parent="">
+        <item name="android:paddingStart">10dp</item>
+        <item name="android:paddingEnd">10dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:background">@drawable/bg_status_badge</item>
+    </style>
+
+    <!-- Used for each row on the Profile screen (Saved Designs, Addresses, etc.) -->
+    <style name="ProfileRow">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingStart">20dp</item>
+        <item name="android:paddingEnd">20dp</item>
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:paddingBottom">16dp</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:drawableEnd">@drawable/ic_chevron_right</item>
+        <item name="android:drawablePadding">8dp</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="ProfileDivider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_marginStart">20dp</item>
+        <item name="android:background">@color/divider</item>
+    </style>
+</resources>
